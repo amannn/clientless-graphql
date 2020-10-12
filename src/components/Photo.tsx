@@ -1,4 +1,7 @@
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 import {Photo_PhotoFragment} from '../../graphQlTypes';
+import {Theme} from '../theme';
 
 type Props = {
   photo: Photo_PhotoFragment;
@@ -6,11 +9,14 @@ type Props = {
 
 export default function Photo({photo}: Props) {
   return (
-    <div>
+    <div css={{padding: 10}}>
       <img height={200} src={photo.url} />
-      <p>
-        <b>{photo.title}</b> from <b>{photo.album?.title}</b>
-      </p>
+      <div css={{fontFamily: 'sans-serif', marginTop: 10}}>
+        <p css={{fontSize: 20, margin: 0}}>{photo.title}</p>
+        <p css={(theme: Theme) => ({margin: 0, color: theme.colors.gray})}>
+          {photo.album?.title}
+        </p>
+      </div>
     </div>
   );
 }
