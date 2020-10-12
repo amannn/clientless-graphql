@@ -1,0 +1,8 @@
+overwrite: true
+schema: "https://graphqlzero.almansi.me/api"
+documents: "src/**/*.tsx"
+generates:
+  graphQlTypes.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
