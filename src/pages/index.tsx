@@ -9,7 +9,7 @@ type Props = {
 
 const query = /* GraphQL */ `
   query Home {
-    photos(options: {paginate: {limit: 2}}) {
+    photos(options: {paginate: {limit: 3}}) {
       data {
         ...Photo_photo
       }
