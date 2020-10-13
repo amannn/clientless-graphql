@@ -1,5 +1,5 @@
 import {ThemeProvider} from 'emotion-theming';
-import theme from '../theme';
+import theme from 'theme';
 
 function MyApp({Component, pageProps}) {
   return (

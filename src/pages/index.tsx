@@ -1,7 +1,7 @@
 import Head from 'next/head';
-import {HomeQuery} from '../../graphQlTypes';
-import Photo from '../components/Photo';
-import fetchGraphQl from '../utils/fetchGraphQl';
+import {HomeQuery} from 'graphQlTypes';
+import Photo from 'components/Photo';
+import fetchGraphQl from 'utils/fetchGraphQl';
 
 type Props = {
   data: HomeQuery;

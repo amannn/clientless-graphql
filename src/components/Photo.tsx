@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
-import {Photo_PhotoFragment} from '../../graphQlTypes';
-import {Theme} from '../theme';
+import {Photo_photoFragment} from 'graphQlTypes';
+import {Theme} from 'theme';
 
 type Props = {
-  photo: Photo_PhotoFragment;
+  photo: Photo_photoFragment;
 };
 
 export default function Photo({photo}: Props) {

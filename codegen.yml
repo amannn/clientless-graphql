@@ -2,7 +2,12 @@ overwrite: true
 schema: "https://graphqlzero.almansi.me/api"
 documents: "src/**/*.tsx"
 generates:
-  graphQlTypes.ts:
+  src/graphQlTypes.ts:
     plugins:
       - "typescript"
       - "typescript-operations"
+    config:
+      namingConvention: keep
+      skipTypename: true
+      preResolveTypes: true
+      onlyOperationTypes: true
