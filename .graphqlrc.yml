@@ -1,0 +1,14 @@
+schema: 'https://countries.trevorblades.com/'
+documents: 'src/**/*.tsx'
+
+extensions:
+  codegen:
+    generates:
+      ./src/gql/:
+        preset: client
+        presetConfig:
+          fragmentMasking: false
+        config:
+          documentMode: 'string'
+          skipTypename: true
+          dedupeFragments: true
