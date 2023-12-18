@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -17,6 +17,7 @@ export type Scalars = {
 };
 
 export type Continent = {
+  __typename: 'Continent';
   code: Scalars['ID']['output'];
   countries: Array<Country>;
   name: Scalars['String']['output'];
@@ -27,6 +28,7 @@ export type ContinentFilterInput = {
 };
 
 export type Country = {
+  __typename: 'Country';
   awsRegion: Scalars['String']['output'];
   capital?: Maybe<Scalars['String']['output']>;
   code: Scalars['ID']['output'];
@@ -57,6 +59,7 @@ export type CountryFilterInput = {
 };
 
 export type Language = {
+  __typename: 'Language';
   code: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   native: Scalars['String']['output'];
@@ -68,6 +71,7 @@ export type LanguageFilterInput = {
 };
 
 export type Query = {
+  __typename: 'Query';
   continent?: Maybe<Continent>;
   continents: Array<Continent>;
   countries: Array<Country>;
@@ -107,6 +111,7 @@ export type QueryLanguagesArgs = {
 };
 
 export type State = {
+  __typename: 'State';
   code?: Maybe<Scalars['String']['output']>;
   country: Country;
   name: Scalars['String']['output'];
@@ -121,6 +126,7 @@ export type StringQueryOperatorInput = {
 };
 
 export type Subdivision = {
+  __typename: 'Subdivision';
   code: Scalars['ID']['output'];
   emoji?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
@@ -129,36 +135,12 @@ export type Subdivision = {
 export type HomeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type HomeQuery = { countries: Array<{ code: string, name: string }> };
+export type HomeQuery = { __typename: 'Query', countries: Array<(
+    { __typename: 'Country', code: string }
+    & { ' $fragmentRefs'?: { 'Country_CountryFragment': Country_CountryFragment } }
+  )> };
 
-export type Country_CountryFragment = { name: string };
+export type Country_CountryFragment = { __typename: 'Country', name: string } & { ' $fragmentName'?: 'Country_CountryFragment' };
 
-export class TypedDocumentString<TResult, TVariables>
-  extends String
-  implements DocumentTypeDecoration<TResult, TVariables>
-{
-  __apiType?: DocumentTypeDecoration<TResult, TVariables>['__apiType'];
-
-  constructor(private value: string, public __meta__?: Record<string, any>) {
-    super(value);
-  }
-
-  toString(): string & DocumentTypeDecoration<TResult, TVariables> {
-    return this.value;
-  }
-}
-export const Country_CountryFragmentDoc = new TypedDocumentString(`
-    fragment Country_country on Country {
-  name
-}
-    `, {"fragmentName":"Country_country"}) as unknown as TypedDocumentString<Country_CountryFragment, unknown>;
-export const HomeDocument = new TypedDocumentString(`
-    query Home {
-  countries(filter: {continent: {eq: "EU"}}) {
-    code
-    ...Country_country
-  }
-}
-    fragment Country_country on Country {
-  name
-}`) as unknown as TypedDocumentString<HomeQuery, HomeQueryVariables>;
+export const Country_CountryFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Country_country"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Country"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]} as unknown as DocumentNode<Country_CountryFragment, unknown>;
+export const HomeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Home"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countries"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"continent"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"StringValue","value":"EU","block":false}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"Country_country"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Country_country"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Country"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]} as unknown as DocumentNode<HomeQuery, HomeQueryVariables>;

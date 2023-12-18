@@ -1,20 +1,27 @@
 'use client';
 
-import {graphql} from 'gql';
-import {Country_CountryFragment} from 'gql/graphql';
+import {FragmentType, graphql, useFragment} from '@/fuse';
+
+const Country_country = graphql(`
+  fragment Country_country on Country {
+    name
+  }
+`);
 
 type Props = {
-  country: Country_CountryFragment;
+  country: FragmentType<typeof Country_country>;
+  visited?: boolean;
 };
 
-export default function Country({country}: Props) {
-  return <li>{country.name}</li>;
+export default function Country({visited, ...data}: Props) {
+  const country = useFragment(Country_country, data.country);
+
+  // @ts-expect-error -- Only available in parent. Note that this is TS-only, the property actually does exist here.
+  country.code;
+
+  return (
+    <li>
+      {country.name} {visited && '(visited)'}
+    </li>
+  );
 }
-
-Country.fragments = {
-  country: graphql(/* GraphQL */ `
-    fragment Country_country on Country {
-      name
-    }
-  `)
-};

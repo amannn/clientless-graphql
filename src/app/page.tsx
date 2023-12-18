@@ -1,8 +1,8 @@
 import Country from 'components/Country';
-import {graphql} from 'gql';
-import fetchGraphQl from 'utils/fetchGraphQl';
+import executeGraphQl from 'utils/executeGraphQl';
+import {graphql} from '@/fuse';
 
-const query = graphql(/* GraphQL */ `
+const query = graphql(`
   query Home {
     countries(filter: {continent: {eq: "EU"}}) {
       code
@@ -15,15 +15,25 @@ const query = graphql(/* GraphQL */ `
 `);
 
 export default async function Index() {
-  const data = await fetchGraphQl({query});
+  const data = await executeGraphQl({query});
+  const visited = ['AT', 'DE'];
 
   return (
     <>
       <h1>European countries</h1>
       <ul>
-        {data.countries.map((country) => (
-          <Country key={country.code} country={country} />
-        ))}
+        {data.countries.map((country) => {
+          // @ts-expect-error -- Only available in child
+          country.name;
+
+          return (
+            <Country
+              key={country.code}
+              visited={visited.includes(country.code)}
+              country={country}
+            />
+          );
+        })}
       </ul>
     </>
   );

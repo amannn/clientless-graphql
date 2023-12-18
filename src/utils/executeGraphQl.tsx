@@ -1,20 +1,26 @@
-import {TypedDocumentString} from 'gql/graphql';
+import {TypedDocumentNode} from 'fuse/client';
+import {print} from 'graphql';
 
 const API_URL = 'https://countries.trevorblades.com/';
 
-export default function fetchGraphQl<Result, Variables>({
+export default function executeGraphQl<Result, Variables>({
   query,
   variables
 }: {
-  query: TypedDocumentString<Result, Variables>;
-  variables?: Record<string, any>;
+  query: TypedDocumentNode<Result, Variables>;
+  variables?: Variables;
 }) {
+  const body = JSON.stringify({
+    query: print(query),
+    variables
+  });
+
   return fetch(API_URL, {
     method: 'POST',
     headers: {
       'content-type': 'application/json'
     },
-    body: JSON.stringify({query, variables})
+    body
   })
     .then((response) => {
       if (!response.ok) throw new Error(response.statusText);
