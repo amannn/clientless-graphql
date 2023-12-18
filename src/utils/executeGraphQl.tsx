@@ -1,4 +1,4 @@
-import {TypedDocumentNode} from 'fuse/client';
+import {TypedDocumentNode} from '@graphql-typed-document-node/core';
 import {print} from 'graphql';
 
 const API_URL = 'https://countries.trevorblades.com/';
